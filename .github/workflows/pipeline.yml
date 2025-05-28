@@ -1,0 +1,73 @@
+name: CI + Publish Pipeline
+
+on:
+  push:
+    branches:
+      - pabcabrod1
+  pull_request:
+    branches:
+      - pabcabrod1
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout del código
+        uses: actions/checkout@v3
+
+      - name: Configurar Java
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: '16'
+
+      - name: Construir el .jar
+        run: |
+          chmod +x gradlew
+          ./gradlew clean jar
+          echo "jacjurtab"
+
+  test:
+    runs-on: ubuntu-latest
+    needs: build
+
+    steps:
+      - name: Checkout del código
+        uses: actions/checkout@v3
+
+      - name: Configurar Java
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: '16'
+
+      - name: Ejecutar tests
+        run: |
+          chmod +x gradlew
+          ./gradlew test
+          echo "jacjurtab"
+
+  publish:
+    runs-on: ubuntu-latest
+    needs: test
+
+    steps:
+      - name: Checkout del código
+        uses: actions/checkout@v3
+
+      - name: Configurar Java
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: '16'
+
+      - name: Publicar en GitHub Packages
+        run: |
+          chmod +x gradlew
+          ./gradlew publish
+          echo "jacjurtab"
+
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

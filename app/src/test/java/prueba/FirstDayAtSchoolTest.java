@@ -1,4 +1,4 @@
-package Junio2022;
+package prueba;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;

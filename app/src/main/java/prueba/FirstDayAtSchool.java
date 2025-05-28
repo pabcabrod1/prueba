@@ -1,7 +1,7 @@
 /**
  * Clase a probar en el c�digo ejemplo para el control de junio de 2022
  */
-package Junio2022;
+package prueba;
 
 /**
  * @author Isabel Rom�n
